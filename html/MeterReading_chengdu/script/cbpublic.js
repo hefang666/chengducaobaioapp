@@ -587,6 +587,7 @@ function getTime(type) {
 
 function Time(type) {
     var date = new Date()
+    console.log(date)
     var time = null
     switch (type) {
         case 'year':

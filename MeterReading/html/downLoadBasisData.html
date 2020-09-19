@@ -571,6 +571,7 @@
     }
 
     function downlaodDatas() {
+        console.log(downlaodTag)
         if (downlaodTag < CBB) {
             $('.center_top').append("下载抄表册...</br>");
             downLoadBooks();
@@ -625,9 +626,7 @@
                 "Parameter": JSON.stringify(Parameter)
             })
         };
-        console.log(body.body);
         fnPost('', body, 'application/json', false, function(ret, err) {
-            console.log(JSON.stringify(ret));
             if (ret) {
                 if (ret.Status == 0) {
                     deleteboods();

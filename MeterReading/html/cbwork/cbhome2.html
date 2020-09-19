@@ -744,7 +744,7 @@
                 var cbch = data.CBCH;
                 var ret1 = db.selectSqlSync({
                     name: 'CBtest',
-                    sql: 'SELECT * FROM MRM_BOOKS_BEAN WHERE CBCH = \'' + cbch + '\' and userName="' + LoginName + '" and (JHR+0)<=' + day
+                    sql: 'SELECT * FROM MRM_BOOKS_BEAN WHERE CBCH = \'' + cbch + '\' and userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
                 });
                 var dataList = ret1.data[0];
                 dataListUserOne(dataList);
@@ -758,7 +758,7 @@
         if ($api.getStorage('newMeterReading') != undefined) {
             db.selectSql({
                 name: 'CBtest',
-                sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + day
+                sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
             }, function(ret, err) {
                 if (ret.status) {
                     if (ret.data.length > 0) {
@@ -767,7 +767,7 @@
                         var cbch = List.CBCH;
                         var ret1 = db.selectSqlSync({
                             name: 'CBtest',
-                            sql: 'SELECT * FROM MRM_BOOKS_BEAN WHERE CBCH = \'' + cbch + '\' and userName="' + LoginName + '" and (JHR+0)<=' + day
+                            sql: 'SELECT * FROM MRM_BOOKS_BEAN WHERE CBCH = \'' + cbch + '\' and userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
                         });
                         var dataList = ret1.data[0];
                         dataListUserOne(dataList);
@@ -851,6 +851,7 @@
             })
         }
         fnPost1('', body, 'application/json', false, function(ret, err) {
+            console.log(JSON.stringify(ret))
             //alert(JSON.stringify(ret));
             if (ret) {
                 if (ret.Status == 0) {
@@ -1016,7 +1017,7 @@
     function insertHome() {
         db.selectSql({
             name: 'CBtest',
-            sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + day
+            sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
         }, function(ret, err) {
             if (ret.status) {
                 var dataList = ret.data;
@@ -1145,7 +1146,7 @@
     function seachInserHome(numer) {
         db.selectSql({
             name: 'CBtest',
-            sql: 'SELECT * FROM MRM_BOOKS_BEAN WHERE CBCH = \'' + numer + '\' and userName="' + LoginName + '" and (JHR+0)<=' + day
+            sql: 'SELECT * FROM MRM_BOOKS_BEAN WHERE CBCH = \'' + numer + '\' and userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
         }, function(ret, err) {
             if (ret.status) {
                 if (ret.data != "") {
@@ -1642,7 +1643,7 @@
 
                                                 db.selectSql({
                                                     name: 'CBtest',
-                                                    sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + day
+                                                    sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
                                                 }, function(ret, err) {
                                                     if (ret.status) {
                                                         var dataList = ret.data;
@@ -1723,7 +1724,7 @@
                         } else {
                             var UIActionProgress = api.require('UIActionProgress');
                             UIActionProgress.close();
-                            alert(JSON.stringify(ret.Message));
+                            // alert(JSON.stringify(ret.Message));
                         }
                     } else {
                         var UIActionProgress = api.require('UIActionProgress');
@@ -2620,7 +2621,7 @@
                                                 //所有勾选中的抄表册下载完成之后，更新顶部的应抄册数和应抄表数
                                                 db.selectSql({
                                                     name: 'CBtest',
-                                                    sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + day
+                                                    sql: 'SELECT * FROM MRM_BOOKS_BEAN where userName="' + LoginName + '" and (JHR+0)<=' + Time("day")
                                                 }, function(ret, err) {
                                                     if (ret.status) {
                                                         var dataList = ret.data;
@@ -2653,7 +2654,7 @@
                             } else {
                                 var UIActionProgress = api.require('UIActionProgress');
                                 UIActionProgress.close();
-                                alert(JSON.stringify(ret.Message));
+                                // alert(JSON.stringify(ret.Message));
                             }
                         } else {
                             var UIActionProgress = api.require('UIActionProgress');

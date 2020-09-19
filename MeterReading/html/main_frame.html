@@ -505,8 +505,10 @@
       api.ajax({
           url: url,
           method: 'get',
+          // timeout: 15,
           dataType: 'json',
           headers: headers,
+          // traditional: true
       }, function(ret, err) {
         if(err){
           $api.setStorage('cameraScale', 500);
@@ -550,7 +552,9 @@
                     "Parameter": JSON.stringify(Parameter)
                 })
             };
+            //alert(body.body);
             fnPost('', body, 'application/json', false, function(ret, err) {
+                //alert(JSON.stringify(ret));
                 if (ret) {
                     if (ret.Status == 0) {
                         var Data = [];

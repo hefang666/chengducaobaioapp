@@ -71,6 +71,7 @@ function fnIntVue() {
                     return {};
                 } else {
                     var details = this.clearObjectSpace(this.UserList[this.UserNumber]);
+                    console.log(JSON.stringify(details))
                     if (this.cbch == undefined) {
                         this.cbch = details.CBCH;
                     }
@@ -2001,6 +2002,9 @@ function fnIntVue() {
                     this.calculateYL();
                 }
                 //alert(JSON.stringify(this.UserDetails));
+                console.log(JSON.stringify(this.UserDetails))
+                console.log(this.UserDetails.ZXBLX)
+                console.log(this.UserDetails.ZXBJSFS)
                 if (this.UserDetails.ZXBLX == "1") { //该用户是总表
                     if (this.UserDetails.ZXBJSFS == "2") { //按比例计算
                         var retUser = db.selectSqlSync({
@@ -2014,7 +2018,7 @@ function fnIntVue() {
                         }
                         if (zblz != 100) { //判断总分表是否下载完。
                             api.toast({
-                                msg: '总分表未下载完全，不能抄表',
+                                msg: '比例表数据异常，不能抄表',
                                 duration: 2000,
                                 location: 'top'
                             });
@@ -3375,10 +3379,8 @@ function fnIntVue() {
                 var oDate2 = new Date(date2);
                 if (oDate1.getTime() > oDate2.getTime()) {
                     return true;
-                    console.log('第一个大');
                 } else {
                     return false;
-                    console.log('第二个大');
                 }
             }
 

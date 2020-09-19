@@ -24,11 +24,24 @@ function fnPostPhoto(path, Parameter,FileUrlArr, contentType, isPut, callback) {
     if (contentType) {
         headers["Content-Type"] = contentType;
     }
+	var fdf = {
+		values: {
+			Method: 'R999',
+			UserName: $api.getStorage('cbOperatorName'), //"01012"
+			Password: $api.getStorage('cbPassword'), // "g6OuZomFp3E="
+			SerialNo: dataTime(),
+			KeyCode: '', //营业
+			Parameter: JSON.stringify(Parameter)
+		},
+		files: {
+			file: FileUrlArr
+		}
+	}
 
     var options = {
         url: $api.getStorage('apiRequestUrl') + '/api/WaterMeters/Info',
         method: 'post',
-        timeout: 60,
+        timeout: 20,
         data: {
             values: {
                 Method: 'R999',
@@ -43,6 +56,8 @@ function fnPostPhoto(path, Parameter,FileUrlArr, contentType, isPut, callback) {
             }
         }
     }
+	console.log($api.getStorage('apiRequestUrl') + '/api/WaterMeters/Info')
+	console.log(JSON.stringify(options.data))
 
     api.ajax(options, function(ret, err) {
         api.refreshHeaderLoadDone();
@@ -276,8 +291,6 @@ function fnPost(path, data, contentType, isPut, callback) {
 		headers: headers,
 		data: data
 	}
-	//alert(JSON.stringify(options));
-
 	api.ajax(options, function(ret, err) {
 		api.refreshHeaderLoadDone();
 		api.hideProgress();
@@ -468,12 +481,12 @@ function fnPostt(path, data, contentType, isPut, callback) {
 };
 
 function fnPost1(path, data, contentType, isPut, callback) {
-		getInitApi();
+	getInitApi();
 	var headers = {};
 	if (contentType) {
 		headers["Content-Type"] = contentType;
 	}
-
+	console.log('请求发送')
 	api.ajax({
 		url: $api.getStorage('apiRequestUrl')+ '/api/WaterMeters/Info',
 		method: isPut ? 'put' : 'post',
@@ -483,6 +496,8 @@ function fnPost1(path, data, contentType, isPut, callback) {
 		headers: headers,
 		data: data
 	}, function(ret, err) {
+		console.log(JSON.stringify(ret))
+		console.log(JSON.stringify(err))
 		api.refreshHeaderLoadDone();
 		if (ret) {
 			callback(ret, err);
@@ -760,7 +775,6 @@ function fnPostNoProcess(path, data, contentType, isPut, callback) {
 	if (contentType) {
 		headers["Content-Type"] = contentType;
 	}
-   alert($api.getStorage('apiRequestUrl') )
 	api.ajax({
 		url: $api.getStorage('apiRequestUrl') + '/api/WaterMeters/Info',
 		method: isPut ? 'put' : 'post',
