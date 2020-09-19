@@ -1,0 +1,84 @@
+<widget id=" A6026378331159" version="0.0.1">
+    <!-- <content src="tabLayout.json" /> -->
+
+    <name>云平台App</name>
+
+    <description>
+
+        Example For APICloud.
+
+    </description>
+
+    <author email="developer@apicloud.com" href="http://www.apicloud.com">
+
+        Developer
+
+    </author>
+
+    <content src="index.html"/>
+
+    <access origin="*"/>
+
+    <preference name="pageBounce" value="false"/>
+
+    <preference name="appBackground" value="rgba(0,0,0,0.0)"/>
+
+    <preference name="windowBackground" value="rgba(0,0,0,0.0)"/>
+
+    <preference name="frameBackgroundColor" value="rgba(0,0,0,0.0)"/>
+
+    <preference name="hScrollBarEnabled" value="false"/>
+
+    <preference name="vScrollBarEnabled" value="false"/>
+
+    <preference name="autoLaunch" value="true"/>
+
+    <preference name="fullScreen" value="false"/>
+
+    <preference name="autoUpdate" value="false"/>
+
+    <preference name="smartUpdate" value="true"/>
+
+    <preference name="debug" value="true"/>
+
+    <preference name="softInputMode" value="auto"/>
+
+    <preference name="statusBarAppearance" value="true"/>
+
+    <permission name="readPhoneState"/>
+
+    <permission name="camera"/>
+
+    <permission name="record"/>
+
+    <permission name="location"/>
+
+    <permission name="fileSystem"/>
+
+    <permission name="internet"/>
+
+    <permission name="bootCompleted"/>
+
+    <permission name="hardware"/>
+    <!-- ios 判断应用是否安装 -->
+    <preference name="querySchemes" value="weixin,sinaweibo,mqqapi,mqq,alipay,alipayshare,baiduMap,iosaMap,comgooglemaps" />
+
+    <!-- <feature name="ajpush">
+        <param name="app_key" value="fba92a11df6e3122517cd8ed"/>
+        <param name="channel" value="40f8e5c29312ac5e17102699"/>
+    </feature> -->
+
+    <preference name="backgroundMode" value="location"/>
+
+      <feature name="ajpush">
+        <param name="app_key" value="916842a7c48ca09f622acb91"/>
+        <param name="channel" value="086a3e46de9a6655381de521"/>
+    </feature>
+
+    <feature name="bMap">
+        <param name="android_api_key" value="C8EpyUyPtI7E82XpRejDRQoasDsZ7lhX"/>
+        <param name="ios_api_key" value="0emlItbGqFqss4WuTmWRkrfu9GawGter"/>
+    </feature>
+
+
+</widget>

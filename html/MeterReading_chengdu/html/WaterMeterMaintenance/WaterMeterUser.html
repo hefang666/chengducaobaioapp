@@ -1,0 +1,1134 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>抄表详情信息编辑</title>
+    <link rel="stylesheet" type="text/css" href="../../../public/css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../../public/css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../../public/css/vant.css" />
+    <style media="screen">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(243, 243, 243.1);
+        }
+
+        .flex-wrap-box {
+            display: flex;
+            flex-flow: column;
+            height: 100%;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .aui-bar-nav {
+            top: 0;
+            z-index: 1;
+            background: linear-gradient(90deg, rgba(46, 142, 250, 1), rgba(49, 89, 235, 1));
+            color: #FFF;
+            font-size: 0.95rem;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0rem;
+        }
+
+        .aui-bar-nav .aui-btn .aui-iconfont {
+            color: #FFF;
+            font-size: 0.95rem;
+        }
+
+        .aui-bar-nav .aui-pull-right {
+            font-size: 0.95rem;
+        }
+
+        .content {
+            flex: 1;
+            /*margin-top: 3.5rem;*/
+            margin-bottom: 4rem;
+            overflow: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .content .aui-list {
+            width: 100%;
+            background-image: none;
+            width: 92vw;
+            background: #fff;
+            margin: 0.55rem 0.7rem 0.5rem 0.75rem;
+        }
+
+        .content .aui-list .aui-list-header {
+            height: 2.1rem;
+            font-size: 0.9rem;
+            font-family: PingFangSC-Medium;
+            font-weight: 500;
+            color: #333;
+            background: #fff;
+            border-radius: 0.6rem 0.6rem 0 0;
+        }
+
+        .aui-list-item-input {
+            flex: 1;
+            margin-left: 0.6rem;
+            border-bottom: 1px solid rgba(210, 210, 210, 1);
+        }
+
+        .content .list-item .aui-list-item-inner .aui-list-item-input input {
+            font-size: 1rem;
+            color: #333;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            padding: none!important;
+            display: flex;
+            padding-left: 0.6rem;
+        }
+
+        .content .list-item .aui-list-item-inner .aui-list-item-input input.not_input {
+            color: #999!important;
+        }
+
+        .CodeScanningpostion {
+            position: relative;
+        }
+
+        .CodeScanning {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.38rem;
+        }
+
+        .content .aui-list .aui-list-item-label {
+            font-size: 1rem;
+            font-family: Source Han Sans SC;
+            font-weight: 400;
+            color: rgba(35, 35, 35, 1);
+            line-height: 2rem;
+        }
+
+        .aui-list-item-label2 {
+            width: 4rem;
+            font-size: 1rem;
+            font-family: Source Han Sans SC;
+            font-weight: 400;
+            color: rgba(35, 35, 35, 1);
+            height: 2rem;
+            line-height: 2rem;
+            text-align: justify;
+            text-align-last: justify;
+        }
+
+        .aui-list-item-label2::after {
+            content: ".";
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            height: 0;
+        }
+
+        .content .aui-list-header:before {
+            content: '';
+            width: 0.2rem;
+            height: 1rem;
+            background: #574DF2;
+            display: inline-block;
+            position: absolute;
+            top: 1.1rem;
+        }
+
+        .content .content-title {
+            margin-left: 0.5rem;
+            width: 5.5rem;
+            height: 1.25rem;
+        }
+
+        .AddMemoBox {
+            width: auto;
+            height: auto;
+        }
+
+        .AddMemoBox>.AddMemo {
+            position: relative;
+            left: 2.4rem;
+        }
+
+        .AddMemoBox>.AddMemo img {
+            max-width: 45%;
+            display: block;
+        }
+
+        .beiwanglu {
+            width: 92%;
+            margin: 0rem 0.7rem 0.5rem 0.9rem;
+            border: 1px solid rgba(217, 217, 217, 1);
+            overflow: hidden;
+            height: 30vh;
+        }
+
+        .beiwanglu>ul {
+            width: 90%;
+            height: auto;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin: 0 auto;
+            margin-top: 0.5rem;
+        }
+
+        .beiwanglu>ul>.list-item {
+            padding-left: 0rem!important;
+            width: 100%;
+        }
+
+        .content .aui-list .Remarktext-content .Remarktext-box {
+            border: 1px solid rgba(217, 217, 217, 1);
+            /*margin-right: 0.75rem;*/
+        }
+
+        .content .beiwanglu img {
+            max-width: 20%;
+        }
+
+        .content .beiwanglu .Remarktext-box label {
+            margin-bottom: 0.6rem;
+        }
+
+        .content .beiwanglu .Remarktext-box .dataTime {
+            width: 65%!important;
+            /*visibility: hidden;*/
+            /*background: pink;*/
+            border-bottom: 1px solid rgba(217, 217, 217, 1);
+            height: 2rem;
+            position: relative;
+        }
+
+        .content .beiwanglu .Remarktext-box .dataTime .dianji:before {
+            content: '';
+            width: 0.6rem;
+            height: 0.6rem;
+            position: absolute;
+            top: 40%;
+            right: 0;
+            background: transparent;
+            border: 1px solid rgba(55, 126, 255, 1);
+            border-top: none;
+            border-right: none;
+            z-index: 2;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            -webkit-transform: rotate(315deg);
+            transform: rotate(315deg);
+        }
+
+        footer {
+            position: absolute;
+            ;
+            bottom: 1rem;
+            width: 100%;
+        }
+
+        .footer .Allsave {
+            width: 100%;
+            margin: 0 0.25rem;
+        }
+
+        .footer .Allsave>div:active {
+            background: rgba(55, 126, 255, 0.4);
+        }
+
+        .footer .Allsave>div {
+            margin: 0 auto;
+            width: 70%;
+            border-radius: 0.5rem;
+            line-height: 2rem;
+            text-align: center;
+            font-size: 1rem;
+            font-family: Source Han Sans SC;
+            font-weight: 400;
+            background: rgba(55, 126, 255, 1);
+            border-radius: 1rem;
+            color: #fff;
+        }
+
+        #GDZP {
+            margin-left: 20px;
+            margin-right: 20px;
+            height: auto;
+        }
+
+        .photo {
+            width: 100%;
+            height: 100%;
+        }
+
+        .img-item {
+            float: left;
+            margin-right: 5%;
+            width: 30%;
+            height: 65px;
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        .last-img {
+            margin-right: 0;
+        }
+
+        .deleteImg {
+            position: absolute;
+            right: -7px;
+            top: -7px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .locationImg {
+            height: 17px;
+            margin-top: 5px;
+        }
+
+        .textarea {
+            border: 1px solid #D9D9D9;
+            border-radius: 10px;
+            font-size: 18px;
+            color: #626262;
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .popup {
+            max-height: 40vh;
+        }
+
+        .flex-con {
+            /*overflow: auto;
+            -webkit-overflow-scrolling: touch;*/
+            background-color: #F3F3F3;
+            padding: 0.85rem 0.75rem;
+        }
+
+        .pickerMain {
+            background-color: #fff;
+            padding: 0;
+            overflow-y: auto;
+            min-height: 5Vh;
+            max-height: 32Vh;
+        }
+
+        .picker {
+            width: 100vw;
+            height: 2.13rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #5A5A5A;
+            background-color: #fff;
+            border-bottom: 0.03rem solid #EDEDED;
+        }
+
+        .picker:last-child {
+            border-bottom: none;
+        }
+
+        .picker.active {
+            background-color: #F4F4F4;
+            color: #2F81F6;
+        }
+
+        .popupFooter {
+            width: 100vw;
+            height: 2.46rem;
+            border-top: 0.25rem solid #ECECEC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #5A5A5A;
+            background-color: #fff;
+        }
+
+        .c-down-icon {
+            position: absolute;
+            right: 0.2rem;
+            top: 0.6rem;
+        }
+
+        .c-saoma {
+            width: 1rem;
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div class="flex-wrap-box" id='InitVue'>
+        <header class="aui-bar aui-bar-nav header" id="header">
+            <div class="aui-pull-left aui-btn" tapmode @click='back'>
+                <span class="aui-iconfont aui-icon-left"></span>
+            </div>
+            <div class="aui-title">水表接收</div>
+        </header>
+        <van-popup class="popup" v-model="showPicker" position="bottom" @closed="hideAllSelect">
+            <div class="flex-wrap flex-vertical">
+                <div class="flex-con pickerMain" v-if="showWaterStatus">
+                    <div class="picker" v-for="(item,index) in waterStatusObj" :key="index" :class="{active:waterMeterStatus.Id == item.Id}" @click="waterMeterStatus.Name=item.Name;waterMeterStatus.Id=item.Id;showPicker=false;showWaterStatus=false">
+                        {{item.Name}}
+                    </div>
+                </div>
+                <div class="flex-con pickerMain" v-if="showWaterNature">
+                    <div class="picker" v-for="(item,index) in waterNatureObj" :key="index" :class="{active:waterNatureSelect.Id == item.Id}" @click="waterNatureSelect.Name=item.Name;waterNatureSelect.Id=item.Id;showPicker=false;showWaterNature=false">
+                        {{item.Name}}
+                    </div>
+                </div>
+                <div class="flex-con pickerMain" v-if="showWaterType">
+                    <div class="picker" v-for="(item,index) in waterTypeObj" :key="index" v-if='item.Name!=""' :class="{active:userDatas.SBLXID == item.Id }" @click="userDatas.SBLX=item.Name;userDatas.SBLXID=item.Id;waterTypeId=item.Id;showPicker=false;showWaterType=false;">
+                        {{item.Name}}
+                    </div>
+                </div>
+                <div class="flex-con pickerMain" v-if="showWaterKJ">
+                    <div class="picker" v-for="(item,index) in waterKJ" :key="index" :class="{active:userDatas.KJ==item}" @click="userDatas.KJ = item; showPicker=false;showWaterKJ=false;">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+            <div class="popupFooter" @click="hideAllSelect">
+                取消
+            </div>
+        </van-popup>
+        <div class="content">
+            <div class="">
+                <ul class="aui-list aui-list-in">
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                用户编号
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input class='not_input' type="number" v-model='userDatas.YHBH' placeholder="请输入用户户号" readonly="readonly"></input>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                水表表号
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="text" placeholder="" v-model='userDatas.SBBH'></input>
+                            </div>
+                            <img src="../../image/MeteReading/cbdatiles/saoma.png" class='c-saoma' alt="" @click='CodeScanning2'>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                用户名称
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="text" placeholder="请输入用户户名" v-model='userDatas.YHMC'></input>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                用户地址
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="text" placeholder="请输入用户地址" v-model='userDatas.YHDZ'></input>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                联系人
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="text" placeholder="请输入联系人" v-model='userDatas.LXR'></input>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                联系电话
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="number" placeholder="请输入用户电话" v-model='userDatas.YDDH'></input>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                水表止度
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="number" placeholder="请输入水表止度" v-model='userDatas.SBQD'></input>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                接收状态
+                            </div>
+                            <div class="aui-list-item-input CodeScanningpostion" tapmode @click="showPicker=true;showWaterStatus=true;">
+                                <input type="text" v-model='waterMeterStatus.Name' readonly="readonly">
+                                <i class="aui-iconfont aui-icon-down c-down-icon"></i>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                用水性质
+                            </div>
+                            <div class="aui-list-item-input CodeScanningpostion" tapmode @click="showPicker=true;showWaterNature = true;">
+                                <input type="text" v-model='waterNatureSelect.Name' readonly="readonly" placeholder="请选择用水性质">
+                                <i class="aui-iconfont aui-icon-down c-down-icon"></i>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                口径
+                            </div>
+                            <div class="aui-list-item-input CodeScanningpostion" tapmode @click="showPicker=true;showWaterKJ = true;">
+                                <input type="text" v-model='userDatas.KJ' readonly="readonly" placeholder="请选择口径">
+                                <i class="aui-iconfont aui-icon-down c-down-icon"></i>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                水表类型
+                            </div>
+                            <div class="aui-list-item-input CodeScanningpostion" @click="showPicker=true;showWaterType = true;">
+                                <input type="text" v-model='userDatas.SBLX' readonly="readonly" placeholder="请选择水表类型">
+                                <i class="aui-iconfont aui-icon-down c-down-icon"></i>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="list-item" v-show='ShowCJBH'>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                采集编号
+                            </div>
+                            <div class="aui-list-item-input">
+                                <input type="text" placeholder="请输入采集编号" v-model='userDatas.CJBH'></input>
+                            </div>
+                            <img src="../../image/MeteReading/cbdatiles/saoma.png" class='c-saoma' alt="" @click='CodeScanning'>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-label2">
+                                备注
+                            </div>
+                        </div>
+                    </li>
+                    <textarea class="textarea" maxlength="100" placeholder="请输入内容" v-model='userDatas.BZ'></textarea>
+
+                </ul>
+            </div>
+            <div class="GDZP">
+                <div class="showPicture" v-show='photoList.length>0' v-for='(item,index) in photoList' :key='index'>
+                    <!-- <div class="img-item last-img" v-if='(index+1)%3 == 0'>
+                        <img src="../../image/MeteReading/tupian/sahnchu-2.png" @click="deletephoto(index)" class="deleteImg"></img>
+                        <img :src="item.ZPLJ" @click="showPhoto(index)" class="photo"></img>
+                    </div>
+                    <div class="img-item" v-else>
+                        <img src="../../image/MeteReading/tupian/sahnchu-2.png" @click="deletephoto(index)" class="deleteImg"></img>
+                        <img :src="item.ZPLJ" @click="showPhoto(index)" class="photo"></img>
+                    </div> -->
+                    <div class="img-item">
+                        <img src="../../image/MeteReading/tupian/sahnchu-2.png" @click="deletephoto(index)" class="deleteImg"></img>
+                        <img :src="item.ZPLJ" @click="showPhoto(index)" class="photo"></img>
+                    </div>
+                </div>
+                <div class="img-item">
+                    <img src="../../image/MeteReading/tupian/zhaopian_daohang.png" @click="openphoto()" class="photo"></img>
+                </div>
+            </div>
+        </div>
+        <footer class="footer" v-show='SaveBtnShow'>
+            <div class="Allsave" tapmode @click="saveDataList">
+                <div>保存</div>
+            </div>
+        </footer>
+    </div>
+</body>
+<script type="text/javascript" src="../../../public/script/api.js"></script>
+<script type="text/javascript" src="../../../public/script/common.js"></script>
+<script type="text/javascript" src="../../script/cbpublic.js"></script>
+<script type="text/javascript" src="../../script/cbremote.js"></script>
+<script type="text/javascript" src="../../../public/script/zepto.js"></script>
+<script type="text/javascript" src="../../../public/script/moment.js"></script>
+<script type="text/javascript" src="../../../public/script/vue/fastclick.min.js"></script>
+<script type="text/javascript" src="../../../public/script/vue/vue.min.js"></script>
+<script type="text/javascript" src="../../../public/script/vue/vant.min.js"></script>
+<script type="text/javascript" src="../../../public/script/vue/vueTouch.js"></script>
+<script type="text/javascript" src="../../../public/script/publicMethod.js"></script>
+
+<script type="text/javascript">
+    var lon = ""; //经度
+    var lat = ""; //维度
+    apiready = function() {
+        db = api.require("db");
+        var header = $api.byId('header');
+        // 实现沉浸式状态栏效果
+        $api.fixStatusBar(header);
+        fnIntVue();
+    };
+    // fnIntVue();
+
+    function fnIntVue() {
+        window.waterReceptionVue = new Vue({
+            el: '#InitVue',
+            data: {
+                db: api.require('db'),
+                loginName: $api.getStorage('loginData').userName, //登录人员账号
+                UserBean: '', //用户数据库中数据
+                userDatas: {
+                    YHBH: '', //用户编号
+                    SBBH: '', //水表表号
+                    YHMC: '', //用户名称
+                    YHDZ: '', //用户地址
+                    LXR: '', //用户名称
+                    YDDH: '', //用户电话
+                    SBQD: '', //水表起度
+                    SBZT: '', //水表状态
+                    BZ: '', //标志
+                    YSXZID: '', //用水性质ID
+                    XZXFID: '', //性质细分ID
+                    SBLXID: '', //水表类型id
+                    SBLX: '', //水表类型
+                    CJBH: '', //采集编号
+                    KJ: '', //口径
+                    SBYTID: ''//水表用途ID，用于判断户表和非户表
+                },
+                SaveBtnShow: true, //保存按钮是否显示
+                photoList: [], //照片列表
+                photolxList: [], //照片列表
+                TPLXID: [], //图片类型id
+                TPLXNAME: [], //图片类型name
+                TPLX: "", //图片类型
+                waterMeterStatus: { //水表状态
+                    Id: '',
+                    Name: ''
+                },
+                lon: "", //经度
+                lat: "", //维度
+                showPicker: false, //下拉选择是否显示
+                showWaterNature: false, //是否显示水表类型选择
+                showWaterType: false, //是否显示水表类型
+                showWaterKJ: false, //是否显示水表类型
+                showWaterStatus: false, //水表状态
+                waterNatureObj: [], //用水性质
+                waterTypeObj: [], //水表类型
+                waterKJ: [], //口径
+                waterNatureSelect: {
+                    Id: '',
+                    Name: ''
+                }, //
+                waterStatusObj: [{
+                    Id: '0',
+                    Name: '异常'
+                }, {
+                    Id: '1',
+                    Name: '正常'
+                }], //问题原因NAME数据。
+                waterTypeId: '',
+                ShowCJBH: false,
+
+
+            },
+            watch: {
+                waterTypeId: function(newValue, oldValue) {
+                    if (newValue == 6) {
+                        this.ShowCJBH = true;
+                    } else {
+                        this.ShowCJBH = false;
+                    }
+                }
+            },
+            methods: {
+                back() {
+                    api.sendEvent({
+                        name: 'informationDataRefresh'
+                    });
+                    api.closeWin();
+                },
+                initPageData() {
+                    var _this = this;
+                    var ret = _this.db.selectSqlSync({
+                        name: 'CBtest',
+                        sql: 'select * from MRM_WATER_METER_USER where YHBH="' + api.pageParam.YHBH + '" and userName="' + _this.loginName + '"'
+                    });
+                    console.log(JSON.stringify(ret))
+                    if (ret.data) {
+                        if (ret.data.length > 0) {
+                            _this.UserBean = ret.data[0];
+                            _this.userDatas.YHBH = ret.data[0].YHBH;
+                            _this.userDatas.SBBH = ret.data[0].SBBH;
+                            _this.userDatas.YHMC = ret.data[0].YHMC;
+                            _this.userDatas.YHDZ = ret.data[0].YHDZ;
+                            _this.userDatas.LXR = ret.data[0].LXR;
+                            _this.userDatas.YDDH = ret.data[0].YDDH;
+                            _this.userDatas.SBQD = ret.data[0].SBQD;
+                            _this.userDatas.BZ = ret.data[0].BZ;
+                            _this.userDatas.KJ = ret.data[0].KJ;
+                            _this.userDatas.SBLXID = ret.data[0].SBLXID;
+                            _this.userDatas.SBLX = ret.data[0].SBLX;
+                            _this.userDatas.YSXZID = ret.data[0].YSXZID;
+                            _this.userDatas.CJBH = ret.data[0].CJBH;
+                            _this.userDatas.XZXFID = ret.data[0].XZXFID;
+                            _this.userDatas.SBYTID = ret.data[0].SBYTID
+                            if (ret.data[0].SBLXID == 6) {
+                                _this.ShowCJBH = true;
+                            }
+
+                            if (ret.data[0].SBZT == "1") {
+                                _this.userDatas.SBZT = '正常';
+                                _this.waterMeterStatus.Id = "1";
+                                _this.waterMeterStatus.Name = "正常";
+                            } else {
+                                _this.userDatas.SBZT = '异常';
+                                _this.waterMeterStatus.Id = "0";
+                                _this.waterMeterStatus.Name = "异常";
+                            }
+                            if (ret.data[0].SFSC == "1") {
+                                _this.SaveBtnShow = false;
+                            }
+                            // console.log(JSON.stringify(_this.userDatas))
+                            _this.queryPhoto(); //查询当前水表是否有图片
+                        }
+                    }
+                    _this.queryPhotoLx(); //查询图片类型
+                },
+                queryPhoto() {
+                    var _this = this;
+                    //获取用户数据
+                    var ret = _this.db.selectSqlSync({
+                        name: 'CBtest',
+                        sql: 'select * from MRM_WATER_METER_PHOTOS where YHBH="' + _this.UserBean.YHBH + '" and userName="' + _this.loginName + '"'
+                    });
+                    if (ret.data) {
+                        _this.photoList = ret.data;
+                    }
+                },
+                queryPhotoLx() {
+                    var _this = this;
+                    var ret = _this.db.selectSqlSync({
+                        name: 'CBtest',
+                        sql: 'SELECT * FROM MRM_ONLINE_BEAN where TYPEID="FJFL" and userName="' + _this.loginName + '"'
+                    });
+                    if (ret.data) {
+                        _this.photolxList = ret.data;
+                        for (var i = 0; i < ret.data.length; i++) {
+                            _this.TPLXID.push(ret.data[i].ID);
+                            _this.TPLXNAME.push(ret.data[i].NAME);
+                        }
+
+                    }
+                },
+                //删除图片
+                deletephoto(index) {
+                    var _this = this;
+                    if (this.UserBean.SFSC == "1") {
+                        return;
+                    }
+                    api.confirm({
+                        title: '提示',
+                        msg: '确认删除照片',
+                        buttons: ['确定', '取消']
+                    }, function(ret, err) {
+                        if (ret) {
+                            if (ret.buttonIndex == 1) {
+                                _this.DeleteLocalPicture(index);
+                            }
+                        }
+                    });
+                },
+                DeleteLocalPicture(index) {
+                    //删除图片
+                    var _this = this;
+                    var fs = api.require('fs');
+                    fs.remove({
+                        path: _this.photoList[index].ZPLJ
+                    }, function(ret, err) {
+                        if (ret.status) {
+
+                        } else {
+
+                        }
+                        var naviphotodata = _this.db.executeSqlSync({
+                            name: 'CBtest',
+                            sql: 'delete from MRM_WATER_METER_PHOTOS where _id="' + _this.photoList[index]._id + '" and userName="' + _this.loginName + '"'
+                        });
+                        if (naviphotodata.status) {
+                            _this.photoList = [];
+                            _this.queryPhoto();
+                        }
+                    });
+
+                },
+                //展示图片
+                showPhoto(index) {
+                    var imgArr = [];
+                    for (var i = 0; i < this.photoList.length; i++) {
+                        imgArr.push(this.photoList[i].ZPLJ);
+                    }
+                    pBrowserPicture(index, imgArr);
+                },
+                //拍照
+                openphoto() {
+                    var _this = this;
+                    if (_this.UserBean.SFSC == "1") {
+                        return;
+                    }
+
+                    if (_this.photoList.length > 0) {
+                        api.actionSheet({
+                            buttons: _this.TPLXNAME
+                        }, function(ret, err) {
+                            var index = ret.buttonIndex;
+                            var bool = false;
+                            for (var i = 0; i < _this.photoList.length; i++) {
+                                if (_this.photoList[i].ZPLX == "BWT") {
+                                    bool = true;
+                                    break;
+                                }
+                            }
+
+                            if (_this.TPLXID[index - 1] == "BWT" && bool) {
+                                api.toast({
+                                    msg: '已存在表位图片！',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                                return;
+                            } else {
+                                _this.TPLX = _this.TPLXID[index - 1];
+                                api.actionSheet({
+                                    buttons: ['拍照']
+                                }, function(ret, err) {
+                                    var index = ret.buttonIndex;
+                                    if (index == 1) {
+                                        _this.getCamera(1);
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        _this.TPLX = "BWT";
+                        api.actionSheet({
+                            buttons: ['拍照']
+                        }, function(ret, err) {
+                            var index = ret.buttonIndex;
+                            if (index == 1) {
+                                _this.getCamera(1);
+                            }
+                        });
+                    }
+                },
+                select() {
+                    api.actionSheet({
+                        buttons: this.onlineSBZTNAME
+                    }, function(ret, err) {
+                        var index = ret.buttonIndex;
+                        if (index <= onlineSBZTID.length) {
+                            //  $('#SBZT').val(onlineSBZTNAME[index - 1]);
+                            //  SBZTID = onlineSBZTID[index - 1]
+                            //  SBZTNAME = onlineSBZTNAME[index - 1]
+                        }
+                    });
+                },
+                getLocation() { //获取定位
+                    var _this = this;
+                    pGetLocation(function(ret, err) {
+                        if (ret.status) {
+                            _this.lon = ret.lon;
+                            _this.lat = ret.lat;
+                        }
+                    });
+
+                },
+                getCamera(type) {
+                    var _this = this;
+                    var options = {
+                        type: type == 1 ? 'camera' : 'pic',
+                        waterMark: true,
+                        from: 'cb', //从哪个应用传入的
+                        maxPictures: 1, //pic时传
+                        waterMarkData: {
+                            yhbh: _this.UserBean.YHBH
+                        }
+                    }
+                    pGetPicture(options, function(ret, err) {
+                        if (ret.status) {
+                            ret.imgList.forEach(function(item, index) {
+                                var picName = item.substring(item.lastIndexOf("/") + 1);
+                                var url = item;
+                                var year = Time("year"); //获取系统的年；
+                                var month = Time("month"); //获取系统月份，由于月份是从0开始计算，所以要加1
+                                var day = Time("day"); //获取系统日
+                                var hour = Time("hour"); //获取系统时间
+                                var minute = Time("minute"); //分
+                                var second = Time("second"); //秒
+                                var ZPMC = year + month + day + hour + minute + second + "_" + url.substr(url.lastIndexOf('/') + 1, url.lastIndexOf('.') + 3);
+                                var NotLoction = 1;
+                                if (_this.photoList.length > 0) {
+                                    NotLoction = parseInt(_this.photoList[_this.photoList.length - 1].NotLoction) + 1;
+                                }
+                                var naviphoto = {
+                                    "ID": "10001",
+                                    "YHBH": _this.UserBean.YHBH,
+                                    "ZPMC": ZPMC,
+                                    "ZPLX": _this.TPLX,
+                                    "ZPLJ": url,
+                                    "NotLoction": NotLoction,
+                                    "ZPJD": _this.lon,
+                                    "ZPWD": _this.lat,
+                                    "SFSC": "0",
+                                    "REMARK": ""
+                                }
+                                var naviphotodata = _this.db.executeSqlSync({
+                                    name: 'CBtest',
+                                    sql: "INSERT INTO MRM_WATER_METER_PHOTOS " +
+                                        "(userName, ID, YHBH, ZPMC, ZPLJ, NotLoction, ZPLX, JD, WD, SFSC) VALUES " +
+                                        "('" + _this.loginName +
+                                        "', '" + naviphoto.ID +
+                                        "', '" + naviphoto.YHBH +
+                                        "', '" + naviphoto.ZPMC +
+                                        "', '" + naviphoto.ZPLJ +
+                                        "', '" + naviphoto.NotLoction +
+                                        "', '" + naviphoto.ZPLX +
+                                        "', '" + naviphoto.ZPJD +
+                                        "', '" + naviphoto.ZPWD +
+                                        "', '0')"
+                                });
+                                if (naviphotodata.status) {
+                                    _this.queryPhoto();
+                                }
+                            });
+                        }
+                    });
+                },
+                saveDataList() { //保存
+                    var _this = this;
+                    if (_this.UserBean.SFSC == "1") {
+                        api.toast({
+                            msg: '当前用户数据已上传，无法修改',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        return;
+                    }
+
+                    _this.userDatas.XZXFID = _this.waterNatureSelect.Id;
+                    _this.userDatas.SBZT = _this.waterMeterStatus.Id;
+                    if (_this.photoList.length < 1) {
+                        api.toast({
+                            msg: '请拍照',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        return;
+                    }
+                    if (_this.userDatas.SBYTID != "1") {
+                        var bwtbool = false;
+                        var bptbool = false;
+                        var ysxzbool = false;
+                        for (var i = 0; i < _this.photoList.length; i++) {
+                            if (_this.photoList[i].ZPLX == "BWT") {
+                                bwtbool = true;
+                            }
+                            if (_this.photoList[i].ZPLX == "BPT") {
+                                bptbool = true;
+                            }
+                            if (_this.photoList[i].ZPLX == "YSXZ") {
+                                ysxzbool = true;
+                            }
+                        }
+                        if (!bwtbool) {
+                            api.toast({
+                                msg: '当前用户为非户表，需要表位图片',
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            return;
+                        }
+                        if (!bptbool) {
+                            api.toast({
+                                msg: '当前用户为非户表，需要表盘图片',
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            return;
+                        }
+                        if (!ysxzbool) {
+                            api.toast({
+                                msg: '当前用户为非户表，需要用水性质图片',
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            return;
+                        }
+                    }
+                    api.showProgress({
+                        style: 'default',
+                        animationType: 'fade',
+                        title: '正在保存...',
+                        modal: false
+                    });
+
+                    var ret = _this.db.executeSqlSync({ //SBZTID
+                        name: 'CBtest',
+                        sql: 'UPDATE MRM_WATER_METER_USER SET SBBH="' + _this.userDatas.SBBH +
+                            '",YHMC="' + _this.userDatas.YHMC +
+                            '",YHDZ="' + _this.userDatas.YHDZ +
+                            '",LXR="' + _this.userDatas.LXR +
+                            '",YDDH="' + _this.userDatas.YDDH +
+                            '",SBQD="' + _this.userDatas.SBQD +
+                            '",SBZT="' + _this.userDatas.SBZT +
+                            '",BLSJ="' + dataTime() +
+                            '",BZ="' + _this.userDatas.BZ +
+                            '",SFXG="1" ,YSXZID="' + _this.userDatas.YSXZID +
+                            '" ,XZXFID="' + _this.userDatas.XZXFID +
+                            '",SBLXID="' + _this.userDatas.SBLXID +
+                            '",SBLX="' + _this.userDatas.SBLX +
+                            '",CJBH="' + _this.userDatas.CJBH +
+                            '" ,KJ="' + _this.userDatas.KJ +
+                            '" WHERE YHBH="' + _this.userDatas.YHBH +
+                            '" AND userName = "' + _this.loginName + '"'
+                    });
+                    if (ret.status) {
+                        api.hideProgress();
+                        api.toast({
+                            msg: '保存成功',
+                            duration: 2000,
+                            location: 'top'
+                        });
+                        api.sendEvent({
+                            name: 'WaterMeterUserEdit'
+                        });
+                        api.sendEvent({
+                            name: 'WaterMeterBooksEdit'
+                        });
+                        _this.initPageData();
+                    }
+                },
+                getWaterNature() {
+                    var _this = this;
+                    //  MRM_WATER_NATURE
+                    this.db.selectSql({
+                        name: 'CBtest',
+                        sql: 'select * from MRM_WATER_NATURE'
+                    }, function(ret, err) {
+                        if (ret.status) {
+                            var data = ret.data;
+                            data.forEach(function(item, index) {
+                                _this.waterNatureObj.push({
+                                    Id: item.ID,
+                                    Name: item.NAME
+                                })
+                                if (_this.userDatas.XZXFID == item.ID) {
+                                    _this.waterNatureSelect.Id = item.ID;
+                                    _this.waterNatureSelect.Name = item.NAME;
+                                }
+                            })
+                        }
+                    });
+
+                    this.db.selectSql({
+                        name: 'CBtest',
+                        sql: 'select * from MRM_ONLINE_BEAN where userName="' + _this.loginName + '"'
+                    }, function(ret, err) {
+                        if (ret.status) {
+
+                            var data = ret.data;
+                            if (data.length > 0) {
+                                data.forEach(function(item, index) {
+                                    switch (true) {
+                                        case item.TYPEID == 'SBKJ': //水表口径
+                                            _this.waterKJ.push(item.ID);
+                                            break;
+                                        case item.TYPEID == 'SBLX': //水表类型
+                                            _this.waterTypeObj.push({
+                                                Id: item.ID,
+                                                Name: item.NAME
+                                            });
+                                            break;
+                                    }
+                                })
+                            }
+                        }
+                    });
+
+                },
+                hideAllSelect() {
+                    // 下拉选择关闭
+                    this.showPicker = false;
+                    this.showWaterNature = false;
+                    this.showWaterType = false;
+                    this.showWaterKJ = false;
+                    this.showWaterStatus = false;
+                },
+                CodeScanning() {
+                    var FNScanner = api.require('FNScanner');
+                    var _this = this;
+                    FNScanner.open({
+                        autorotation: true
+                    }, function(ret, err) {
+                        if (ret) {
+                            if (ret.eventType == 'success') {
+                                _this.userDatas.CJBH = ret.content;
+                            }
+                        } else {
+                            console.log(JSON.stringify(err));
+                        }
+                    });
+                },
+                CodeScanning2() {
+                    var _this = this;
+                    var FNScanner = api.require('FNScanner');
+                    FNScanner.open({
+                        autorotation: true
+                    }, function(ret, err) {
+                        if (ret) {
+                            if (ret.eventType == 'success') {
+                                _this.userDatas.SBBH = ret.content;
+                            }
+                        } else {
+                            alert(err);
+                        }
+                    });
+                },
+            },
+            mounted: function() {
+                this.initPageData(); //初始化页面数据 查询数据库
+                this.getWaterNature(); //获取用水性质i
+                this.getLocation();
+            }
+        })
+    }
+</script>
+
+</html>
