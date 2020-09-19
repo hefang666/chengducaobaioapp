@@ -499,7 +499,7 @@
         var photos = photodata.data;
         var photobigdata = db.selectSqlSync({
             name: 'CBtest',
-            sql: 'select * from MRM_PHOTOS_BEAN where SFSC=0 and YHBH in (select YHBH from MRM_USERBIG_BEAN where CBBZ=1 and ZTSCCG=1 and CWXX!=" " and userName="' + LoginName + '")'
+            sql: 'select * from MRM_PHOTOSBIG_BEAN where SFSC=0 and YHBH in (select YHBH from MRM_USERBIG_BEAN where CBBZ=1 and ZTSCCG=1 and CWXX!=" " and userName="' + LoginName + '")'
         });
         if (photobigdata.data.length > 0) {
             for (var i = 0; i < photobigdata.data.length; i++) {
@@ -1813,10 +1813,17 @@
                         if (ret.Status == 0) {
                             //上传成功
                             var db = api.require('db');
-                            var ret = db.executeSqlSync({
-                                name: 'CBtest',
-                                sql: 'update MRM_PHOTOS_BEAN set SFSC="1" where _id="' + photoList._id + '" and userName="' + LoginName + '"'
-                            });
+                            if (photoList.SFSYSDH == "1") { //用水大户图片表
+                                var ret = db.executeSqlSync({
+                                    name: 'CBtest',
+                                    sql: 'update MRM_PHOTOSBIG_BEAN set SFSC="1" where _id="' + photoList._id + '" and userName="' + LoginName + '"'
+                                });
+                            } else {
+                                var ret = db.executeSqlSync({
+                                    name: 'CBtest',
+                                    sql: 'update MRM_PHOTOS_BEAN set SFSC="1" where _id="' + photoList._id + '" and userName="' + LoginName + '"'
+                                });
+                            }
 
                             if (mPageNo == newqbPhoto.length) {
                                 //已上传完

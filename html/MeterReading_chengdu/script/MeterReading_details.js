@@ -377,7 +377,7 @@ function fnIntVue() {
                     }, function(ret, err) {});
                     var photos = db.executeSqlSync({
                         name: 'CBtest',
-                        sql: 'delete from MRM_PHOTOS_BEAN where ZPMC="' + zpmc + '" AND NotLoction="2" AND userName="' + this.LoginName + '"'
+                        sql: 'delete from MRM_PHOTOSBIG_BEAN where ZPMC="' + zpmc + '" AND NotLoction="2" AND userName="' + this.LoginName + '"'
                     });
                 };
                 _this.ImgData = [];
@@ -789,13 +789,13 @@ function fnIntVue() {
                     var photoData = item.data;
                     var existData = db.selectSqlSync({
                         name: "CBtest",
-                        sql: "SELECT * FROM MRM_PHOTOS_BEAN WHERE ZPLJ = '" + photoData.zplj + "' AND YHBH = '" + photoData.yhbh + "' and userName='" + this.LoginName + "'"
+                        sql: "SELECT * FROM MRM_PHOTOSBIG_BEAN WHERE ZPLJ = '" + photoData.zplj + "' AND YHBH = '" + photoData.yhbh + "' and userName='" + this.LoginName + "'"
                     });
                     if (!existData.status || existData.data.length == 0) {
                         var photodata = db.executeSqlSync({
                             name: 'CBtest',
-                            sql: 'INSERT INTO MRM_PHOTOS_BEAN(userName,ID,YHBH,ZPMC,ZPLJ,ZPLX,ZPLXMC,SFSC,JD,WD,CBRQ,' +
-                                'NotLoction) VALUES ("' + this.LoginName + '",' +
+                            sql: 'INSERT INTO MRM_PHOTOSBIG_BEAN(userName,ID,YHBH,ZPMC,ZPLJ,ZPLX,ZPLXMC,SFSC,JD,WD,CBRQ,' +
+                                'NotLoction,SFSYSDH) VALUES ("' + this.LoginName + '",' +
                                 '"' + $api.getStorage('cbOperatorId') + '",' +
                                 '"' + photoData.yhbh + '",' +
                                 '"' + photoData.zpmc + '",' +
@@ -806,7 +806,8 @@ function fnIntVue() {
                                 '"' + photoData.lon + '",' +
                                 '"' + photoData.lat + '",' +
                                 '"' + photoData.time + '",' +
-                                '"' + photoData.NotLoction + '")'
+                                '"' + photoData.NotLoction + '",' +
+                                '"1")'
                         });
                     }
                 }
@@ -816,7 +817,7 @@ function fnIntVue() {
                 _this = this;
                 db.selectSql({
                     name: 'CBtest',
-                    sql: 'SELECT * FROM MRM_PHOTOS_BEAN WHERE YHBH ="' + _this.UserDetails.YHBH + '" AND NotLoction="2" and userName="' + _this.LoginName + '"'
+                    sql: 'SELECT * FROM MRM_PHOTOSBIG_BEAN WHERE YHBH ="' + _this.UserDetails.YHBH + '" AND NotLoction="2" and userName="' + _this.LoginName + '"'
                 }, function(ret, err) {
                     if (ret.status) {
                         if (ret.data.length > 0) {
@@ -874,7 +875,7 @@ function fnIntVue() {
                                                 if (ret.status) {
                                                     var photos = db.executeSqlSync({
                                                         name: 'CBtest',
-                                                        sql: 'delete from MRM_PHOTOS_BEAN where ZPMC="' + zpmc + '" AND NotLoction="2" and userName="' + _this.LoginName + '"'
+                                                        sql: 'delete from MRM_PHOTOSBIG_BEAN where ZPMC="' + zpmc + '" AND NotLoction="2" and userName="' + _this.LoginName + '"'
                                                     });
                                                     _this.ImgData.splice(index, 1);
                                                 }
@@ -883,7 +884,7 @@ function fnIntVue() {
                                             //文件不存在
                                             var photos = db.executeSqlSync({
                                                 name: 'CBtest',
-                                                sql: 'delete from MRM_PHOTOS_BEAN where ZPMC="' + zpmc + '" AND NotLoction="2" and userName="' + _this.LoginName + '"'
+                                                sql: 'delete from MRM_PHOTOSBIG_BEAN where ZPMC="' + zpmc + '" AND NotLoction="2" and userName="' + _this.LoginName + '"'
                                             });
                                             _this.ImgData.splice(index, 1);
                                         }
@@ -1263,7 +1264,7 @@ function fnIntVue() {
                 var yhbh = this.UserDetails.YHBH;
                 // var DELETEimg = db.executeSqlSync({
                 //     name: 'CBtest',
-                //     sql: 'DELETE FROM MRM_PHOTOS_BEAN WHERE YHBH ="' + yhbh + '" AND NotLoction="0"'
+                //     sql: 'DELETE FROM MRM_PHOTOSBIG_BEAN WHERE YHBH ="' + yhbh + '" AND NotLoction="0"'
                 // });
                 var ret = db.executeSqlSync({
                     name: 'CBtest',
@@ -2600,7 +2601,7 @@ function fnIntVue() {
                 }
                 var retimage = db.selectSqlSync({
                     name: 'CBtest',
-                    sql: 'SELECT * FROM MRM_PHOTOS_BEAN WHERE YHBH="' + this.UserDetails.YHBH + '" and SFSC="0" AND NotLoction = "2" and userName="' + this.LoginName + '"'
+                    sql: 'SELECT * FROM MRM_PHOTOSBIG_BEAN WHERE YHBH="' + this.UserDetails.YHBH + '" and SFSC="0" AND NotLoction = "2" and userName="' + this.LoginName + '"'
                 });
                 if (retimage.status) {
                     if (retimage.data.length > 0) {
@@ -2639,7 +2640,7 @@ function fnIntVue() {
                 _this = this;
                 var retimage = db.selectSqlSync({
                     name: 'CBtest',
-                    sql: 'SELECT * FROM MRM_PHOTOS_BEAN WHERE YHBH="' + this.UserDetails.YHBH + '" and SFSC="0" AND NotLoction = "1" and userName="' + this.LoginName + '"'
+                    sql: 'SELECT * FROM MRM_PHOTOSBIG_BEAN WHERE YHBH="' + this.UserDetails.YHBH + '" and SFSC="0" AND NotLoction = "1" and userName="' + this.LoginName + '"'
                 });
                 if (retimage.status) {
                     if (retimage.data.length > 0) {
@@ -2684,7 +2685,7 @@ function fnIntVue() {
                         if (ret.Status == 0) {
                             var ret = db.executeSqlSync({
                                 name: 'CBtest',
-                                sql: 'update MRM_PHOTOS_BEAN set SFSC=1 where _id="' + photoList._id + '" and userName="' + _this.LoginName + '"'
+                                sql: 'update MRM_PHOTOSBIG_BEAN set SFSC=1 where _id="' + photoList._id + '" and userName="' + _this.LoginName + '"'
                             });
                             _this.ImgData.forEach(function(item) {
                                 if (item.path == photoList.ZPLJ) {
@@ -2785,7 +2786,7 @@ function fnIntVue() {
                 //         if (ret.Status == 0) {
                 //             var ret = db.executeSqlSync({
                 //                 name: 'CBtest',
-                //                 sql: 'update MRM_PHOTOS_BEAN set SFSC=1 where _id="' + photoList._id + '" and userName="' + _this.LoginName + '"'
+                //                 sql: 'update MRM_PHOTOSBIG_BEAN set SFSC=1 where _id="' + photoList._id + '" and userName="' + _this.LoginName + '"'
                 //             });
                 //             _this.ImgData.forEach(function(item) {
                 //                 if (item.path == photoList.ZPLJ) {
